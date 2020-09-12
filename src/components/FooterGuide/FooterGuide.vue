@@ -2,7 +2,7 @@
   <div class="footer-guide">
     <span class="guide-item" :class="{on:$route.path==='/msite'}" @click="goto('/msite')">
       <span><i class="iconfont icon-waimai"></i></span>
-      <span>首页</span>
+      <span>外卖</span>
     </span>
     <span class="guide-item" :class="{on:$route.path==='/search'}" @click="goto('/search')">
       <span><i class="iconfont icon-search"></i></span>
@@ -41,6 +41,7 @@
     bottom 0
     height 50px
     width 100%
+    background-color #fff
     .guide-item
       display flex
       flex-direction column
