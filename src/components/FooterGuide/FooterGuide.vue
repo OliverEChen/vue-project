@@ -24,8 +24,8 @@
     name:'FooterGuide',
     methods: {
       goto (path) {
-        // 编程式路由跳转
-        this.$router.replace(path)
+        if(path!==this.$route.path) this.$router.replace(path) // 编程式路由跳转 
+        else window.location = path //刷新界面
       }
     }
   }
