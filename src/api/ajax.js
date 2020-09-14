@@ -1,6 +1,7 @@
 //二次封装ajax
 import axios from 'axios'
 import qs from 'qs'
+import { Indicator } from 'mint-ui'
 
 const instance = axios.create({
   baseURL:'/api',
@@ -9,6 +10,7 @@ const instance = axios.create({
 })
 
 instance.interceptors.request.use((config) => {
+  Indicator.open()
   const data = config.data
   if (data instanceof Object) {
     config.data = qs.stringify(data)
@@ -18,10 +20,11 @@ instance.interceptors.request.use((config) => {
 
 instance.interceptors.response.use(
   response => {
-
+    Indicator.close()
     return response.data
   },
   error => {
+    Indicator.close()
     alert('请求出错' + error.message)
     return new Promise(() => {})
   }
