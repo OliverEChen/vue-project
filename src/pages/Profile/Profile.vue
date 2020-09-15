@@ -1,5 +1,5 @@
 <template>
-    <section class="profile" @click="$router.push('/login')">
+    <section class="profile">
       <Header title="我的"></Header>
       <section class="profile-number">
         <a href="javascript:" class="profile-link">
@@ -7,7 +7,7 @@
             <i class="iconfont icon-person"></i>
           </div>
           <div class="user-info">
-            <p class="user-info-top">登录/注册</p>
+            <p class="user-info-top" @click="$router.push('/login')">登录/注册</p>
             <p>
               <span class="user-icon">
                 <i class="iconfont icon-shouji icon-mobile"></i>
@@ -101,6 +101,7 @@
   @import '../../common/stylus/mixins.styl'
   .profile //我的
     width 100%
+    overflow hidden
     .profile-number
       margin-top 45.5px
       .profile-link
