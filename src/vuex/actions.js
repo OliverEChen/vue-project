@@ -5,13 +5,16 @@
 import {
   reqAddress,
   reqCategorys,
-  reqShops
+  reqShops,
+  reqAutoLogin
 } from '@/api'
 
 import {
   RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
-  RECEIVE_SHOPS
+  RECEIVE_SHOPS,
+  RECEIVE_TOKEN,
+  RECEIVE_USER
 } from './mutation-types'
 
 
@@ -55,5 +58,23 @@ export default {
       const shops = result.data
       commit(RECEIVE_SHOPS, shops)
     }
+  },
+
+  saveUser ({commit},user) {
+    const token = user.token
+    localStorage.setItem('token_key',token)
+    delete user.token
+    commit(RECEIVE_TOKEN,token)
+    commit(RECEIVE_USER,user)
+  },
+
+  async autoLogin ({commit,state}) {
+    if(state.token && !state.user._id) {
+      const result = await reqAutoLogin()
+      if (result.code===0) {
+        const user = result.data
+        commit(RECEIVE_USER,user)
+      }
+    } 
   }
 }

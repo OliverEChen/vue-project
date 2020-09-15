@@ -2,6 +2,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import { Indicator } from 'mint-ui'
+import store from '../vuex/store'
 
 const instance = axios.create({
   baseURL:'/api',
@@ -14,6 +15,10 @@ instance.interceptors.request.use((config) => {
   const data = config.data
   if (data instanceof Object) {
     config.data = qs.stringify(data)
+  }
+  const token = store.state.token
+  if(token){
+    config.headers['Authorization'] = token
   }
   return config
 })

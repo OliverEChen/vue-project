@@ -12,3 +12,5 @@ export const reqSendCode = (phone) => ajax.get('/sendcode',{params: {phone}})
 export const reqPwdLogin = ({name,pwd,captcha}) => ajax.post('login_pwd',{name,pwd,captcha})
 //发登陆请求，验证码
 export const reqSmsLogin = ({phone,code}) => ajax.post('login_sms',{phone,code})
+//自动登录请求
+export const reqAutoLogin = () => ajax.get('/auto_login')
