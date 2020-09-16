@@ -7,7 +7,9 @@ import {
   RECEIVE_CATEGORYS,
   RECEIVE_SHOPS,
   RECEIVE_TOKEN,
-  RECEIVE_USER
+  RECEIVE_USER,
+  RESET_USER,
+  RESET_TOKEN
 } from './mutation-types'
 
 export default {
@@ -25,5 +27,11 @@ export default {
   },
   [RECEIVE_USER] (state, user) {//可直接传数据，也可传对象{user}
     state.user = user
+  },
+  [RESET_USER] (state) {
+    state.user = {}
+  },
+  [RESET_TOKEN] (state) {
+    state.token = ''
   },
 }

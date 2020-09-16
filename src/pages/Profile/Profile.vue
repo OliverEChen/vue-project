@@ -1,7 +1,7 @@
 <template>
     <section class="profile">
       <Header title="我的"></Header>
-      <section class="profile-number"  @click="$router.push(user._id ? '/userinfo' : '/login')">
+      <section class="profile-number" @click="$router.push(user._id ? '/userinfo' : '/login')">
         <a href="javascript:" class="profile-link">
           <div class="profile_image">
             <i class="iconfont icon-person"></i>
@@ -88,14 +88,30 @@
           </div>
         </a>
       </section>
+      <section class="profile_my_order border-1px" v-show="user._id">
+        <mt-button type="danger" style="width:100%" @click="logout">
+          退出登录
+        </mt-button>
+      </section>
     </section>
 </template>
 
 <script type="text/ecmascript-6">
-  import { mapState } from "vuex";
+  import { mapState } from "vuex"
+  import { MessageBox } from "mint-ui";
   export default {
     computed: {
       ...mapState(['user'])
+    },
+    methods: {
+      logout () {
+        MessageBox.confirm('确定退出？').then(
+          () => {
+            this.$store.dispatch('logout')
+          },
+          () => {}
+        )
+      }
     }
   }
 </script>

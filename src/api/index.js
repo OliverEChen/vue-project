@@ -3,9 +3,21 @@ import ajax from './ajax'
 //请求地址
 export const reqAddress = (longitude,latitude) => ajax(`/position/${latitude},${longitude}`)
 //获取食品分类
-export const reqCategorys = () => ajax(`/index_category`)
+export const reqCategorys = () => ajax(`/index_category`,{
+  headers: {
+    needCheck: true
+  }
+})
 //获取商铺列表
-export const reqShops = ({longitude,latitude}) => ajax(`/shops`,{params:{latitude,longitude}})
+export const reqShops = ({longitude,latitude}) => ajax(`/shops`,{
+  params:{
+    latitude,
+    longitude
+  },
+  headers: {
+    needCheck: true
+  }
+})
 // 发送短信验证码
 export const reqSendCode = (phone) => ajax.get('/sendcode',{params: {phone}})
 //发登陆请求，密码

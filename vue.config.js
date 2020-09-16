@@ -27,6 +27,7 @@ module.exports = {
       }
     }
   },
+
   devServer: { 
     proxy: {
       '/api':{
@@ -36,6 +37,15 @@ module.exports = {
         },
         changeOrigin: true,
       },
+    }
+  },
+
+  pluginOptions: {
+    i18n: {
+      locale: 'zh_CN',
+      fallbackLocale: 'en',
+      localeDir: 'locales',
+      enableInSFC: false
     }
   }
 }

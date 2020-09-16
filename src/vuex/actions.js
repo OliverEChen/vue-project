@@ -14,7 +14,9 @@ import {
   RECEIVE_CATEGORYS,
   RECEIVE_SHOPS,
   RECEIVE_TOKEN,
-  RECEIVE_USER
+  RECEIVE_USER,
+  RESET_USER,
+  RESET_TOKEN
 } from './mutation-types'
 
 
@@ -76,5 +78,11 @@ export default {
         commit(RECEIVE_USER,user)
       }
     } 
+  },
+
+  logout ({commit}) {
+    localStorage.removeItem('token_key')
+    commit(RESET_USER)
+    commit(RESET_TOKEN)
   }
 }
