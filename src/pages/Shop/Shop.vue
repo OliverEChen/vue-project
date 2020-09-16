@@ -1,5 +1,5 @@
- <template>
-   <div>
+<template>
+  <div>
     <ShopHeader/>
     <div class="tab">
       <div class="tab-item">
@@ -14,18 +14,18 @@
     </div>
     <router-view></router-view>
    </div>
- </template>
- 
- <script type="text/ecmascript-6">
+</template>
+
+<script type="text/ecmascript-6">
   import ShopHeader from '@components/ShopHeader/ShopHeader'
   export default {
     components: {
       ShopHeader
     }
   }
- </script>
- 
- <style scoped lang="stylus" rel="stylesheet/stylus">
+</script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixins.styl"
   .tab
     height 40px
@@ -52,5 +52,4 @@
             height 2px
             transform translateX(-50%)
             background #02a774
- </style>
- 
+</style>
