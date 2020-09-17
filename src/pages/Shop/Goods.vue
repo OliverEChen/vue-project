@@ -2,8 +2,11 @@
   <div>
     <div class="goods">
       <div class="menu-wrapper" ref="left">
-        <ul>
-          <li class="menu-item" v-for="(good,index) in goods" :key="good.name" :class="{current:currentIndex===index}">
+        <ul ref="leftUl">
+          <li class="menu-item" v-for="(good,index) in goods" :key="good.name" 
+            :class="{current:currentIndex===index}"
+            @click="clickItem(index)"
+          >
             <span class="text bottom-border-1px">
               <img class="icon" :src="good.icon" v-if="good.icon">
               {{good.name}}
@@ -46,8 +49,8 @@
 
 <script type="text/ecmascript-6">
   import { mapState } from "vuex"
-  import BetterScroll from 'better-scroll'
-import BScroll from 'better-scroll'
+  import BScroll from 'better-scroll'
+
   export default {
     name: 'Goods',
     data () {
@@ -61,24 +64,34 @@ import BScroll from 'better-scroll'
       ...mapState(['goods']),
       currentIndex () {
         const {scrollY,tops} = this
-        return tops.findIndex((top,index) => scrollY>=top && scrollY<tops[index+1])
+        const index = tops.findIndex((top,index) => scrollY>=top && scrollY<tops[index+1])
+        if (index!==this.index && this.leftScroll) {
+          this.index = index
+          const li = this.$refs.leftUl.children[index]
+          this.leftScroll.scrollToElement(li,300)
+        }
+        return index
       }
     },
 
     methods: {
       initScroll () {
-        new BScroll(this.$refs.left,{})
-        const rightScroll = new BScroll(this.$refs.right,{
-          probeType: 1
+        this.leftScroll = new BScroll(this.$refs.left,{
+          // movable: true,
+        })
+        this.rightScroll = new BScroll(this.$refs.right,{
+          probeType: 1,
+          // movable: true,
         })
 
-        rightScroll.on('scroll',({x,y}) => {
+        this.rightScroll.on('scroll',({x,y}) => {
           this.scrollY = Math.abs(y)
         }),
-        rightScroll.on('scrollEnd',({x,y}) => {
+        this.rightScroll.on('scrollEnd',({x,y}) => {
           this.scrollY = Math.abs(y)
         })
       },
+
       initTops () {
         const tops = []
         let top = 0
@@ -89,6 +102,12 @@ import BScroll from 'better-scroll'
           tops.push(top)
         })
         this.tops = tops
+      },
+      
+      clickItem (index) {
+        const top = this.tops[index]
+        this.scrollY = top
+        this.rightScroll.scrollTo(0,-top,300)
       }
     },
 
