@@ -26,3 +26,9 @@ export const reqPwdLogin = ({name,pwd,captcha}) => ajax.post('login_pwd',{name,p
 export const reqSmsLogin = ({phone,code}) => ajax.post('login_sms',{phone,code})
 //自动登录请求
 export const reqAutoLogin = () => ajax.get('/auto_login')
+//获取goods
+export const reqGoods = () => ajax('/goods')
+//获取ratings
+export const reqRatings = () => ajax('/ratings')
+//获取info
+export const reqInfo = () => ajax('/info')

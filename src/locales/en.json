@@ -1,4 +1,8 @@
 {
   "login_aboutUs": "About US",
-  "login_login": "login"
+  "login_login": "login",
+  "footer_home": "home",
+  "footer_search": "search",
+  "footer_order": "order",
+  "footer_own": "own"
 }

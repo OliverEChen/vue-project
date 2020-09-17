@@ -10,6 +10,7 @@ import 'lib-flexible'
 import './validate'
 import * as API from '@/api'
 import i18n from './i18n'
+import './mock/mock-server'
 
 Vue.config.productionTip = false
 
