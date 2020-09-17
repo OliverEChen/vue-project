@@ -128,27 +128,34 @@
 
   export default {
     computed: {
-      ...mapState(['address','categorys','shops']),
-      // categorysArr () {
-      //   const {categorys} = this
-      //   const bigArr = []
-      //   let smallArr = []
-      //   categorys.forEach(c => {
-      //     if(smallArr.length===0){
-      //       bigArr.push(smallArr)
-      //     }
-      //     smallArr.push(c)
-      //     if (smallArr.length===8) {
-      //       smallArr = []
-      //     }
-      //   })
-      //   return bigArr
-      // },
+      ...mapState({
+        // 'address','categorys','shops'
+        address: state => state.msite.address,
+        categorys: state => state.msite.categorys,
+        shops: state => state.msite.shops,
+      }),
+
+      categorysArr () {
+        const {categorys} = this
+        const bigArr = []
+        let smallArr = []
+        categorys.forEach(c => {
+          if(smallArr.length===0){
+            bigArr.push(smallArr)
+          }
+          smallArr.push(c)
+          if (smallArr.length===8) {
+            smallArr = []
+          }
+        })
+        return bigArr
+      },
       //使用lodash库
       categorysArr2 () {
         return chunk(this.categorys,8)
       }
     },
+
     async mounted () {
       //分发异步action
       this.$store.dispatch('getCategorys')

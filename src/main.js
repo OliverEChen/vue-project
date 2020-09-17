@@ -4,6 +4,7 @@ import router from './router'
 import Header from './components/Header/Header.vue'
 import store from "./vuex/store"
 import Star from './components/Star/Star.vue'
+import CartControl from './components/CartControl/CartControl.vue'
 import {Button} from 'mint-ui'
 
 import 'lib-flexible'
@@ -18,6 +19,7 @@ Vue.prototype.$API = API
 
 Vue.component('Header',Header)
 Vue.component('Star',Star)
+Vue.component('CartControl',CartControl)
 Vue.component(Button.name,Button)
 
 new Vue({
