@@ -20,11 +20,10 @@
             <h1 class="title">{{good.name}}</h1>
             <ul>
               <li class="food-item bottom-border-1px" v-for="(food,index) in good.foods" 
-                :key="index"
+                :key="index" @click="showFood(food)"
               >
                 <div class="icon">
-                  <img width="57" height="57"
-                    :src="food.icon" @click="showFood(food)">
+                  <img width="57" height="57" :src="food.icon">
                 </div>
                 <div class="content">
                   <h2 class="name">{{food.name}}</h2>
@@ -45,6 +44,7 @@
           </li>
         </ul>
       </div>
+      <ShopCart/>
     </div>
     <Food :food="food" ref="food"/>
   </div>
@@ -54,10 +54,12 @@
   import { mapState } from "vuex"
   import BScroll from 'better-scroll'
   import Food from '@/components/Food/Food'
+  import ShopCart from '@/components/ShopCart/ShopCart'
   export default {
     name: 'Goods',
     components: {
-      Food
+      Food,
+      ShopCart
     },
     data () {
       return {
@@ -69,7 +71,7 @@
 
     computed : {
       ...mapState({
-        goods: state => state.shop.goods
+        goods: state => state.shop.shop.goods || []
       }),
       currentIndex () {
         const {scrollY,tops} = this
@@ -85,20 +87,25 @@
 
     methods: {
       initScroll () {
-        this.leftScroll = new BScroll(this.$refs.left,{
-          // movable: true,
-        })
-        this.rightScroll = new BScroll(this.$refs.right,{
-          probeType: 1,
-          // movable: true,
-        })
+        if (!this.leftScroll) {
+          this.leftScroll = new BScroll(this.$refs.left,{
+            // movable: true,
+          })
+          this.rightScroll = new BScroll(this.$refs.right,{
+            probeType: 1,
+            // movable: true,
+          })
 
-        this.rightScroll.on('scroll',({x,y}) => {
-          this.scrollY = Math.abs(y)
-        }),
-        this.rightScroll.on('scrollEnd',({x,y}) => {
-          this.scrollY = Math.abs(y)
-        })
+          this.rightScroll.on('scroll',({x,y}) => {
+            this.scrollY = Math.abs(y)
+          }),
+          this.rightScroll.on('scrollEnd',({x,y}) => {
+            this.scrollY = Math.abs(y)
+          })
+        } else {
+          this.leftScroll.refresh()
+          this.rightScroll.refresh()
+        }
       },
 
       initTops () {
@@ -122,6 +129,13 @@
       showFood (food) {
         this.food = food
         this.$refs.food.toggleShow()
+      }
+    },
+
+    mounted () {
+      if (this.goods.length>0) {
+        this.initScroll()
+        this.initTops()
       }
     },
 

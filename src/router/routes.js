@@ -42,11 +42,14 @@ export default [
     component:Login
   },
   {
-    path:'/shop',
+    name: 'shop',
+    path:'/shop/:id',
+    props: true,
+    // props: toRoute => ({id:toRoute.params.id}),
     component:Shop,
     children: [
       {
-        path:'/shop/goods',
+        path:'goods',
         component:Goods,
       },
       {

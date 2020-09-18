@@ -6,12 +6,14 @@ import store from "./vuex/store"
 import Star from './components/Star/Star.vue'
 import CartControl from './components/CartControl/CartControl.vue'
 import {Button} from 'mint-ui'
+import VueLazyload from 'vue-lazyload'
 
 import 'lib-flexible'
 import './validate'
 import * as API from '@/api'
 import i18n from './i18n'
 import './mock/mock-server'
+import loading from '@/common/images/loading.gif'
 
 Vue.config.productionTip = false
 
@@ -21,6 +23,10 @@ Vue.component('Header',Header)
 Vue.component('Star',Star)
 Vue.component('CartControl',CartControl)
 Vue.component(Button.name,Button)
+
+Vue.use(VueLazyload, {
+  loading,
+})
 
 new Vue({
   render: h => h(App),

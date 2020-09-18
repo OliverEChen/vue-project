@@ -32,3 +32,6 @@ export const reqGoods = () => ajax('/goods')
 export const reqRatings = () => ajax('/ratings')
 //获取info
 export const reqInfo = () => ajax('/info')
+//获取指导shop
+export const reqShop = (id) => ajax('/shop/' + id)
+
