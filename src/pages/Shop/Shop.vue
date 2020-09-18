@@ -17,7 +17,9 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {mapState} from 'vuex'
   import ShopHeader from '@components/ShopHeader/ShopHeader'
+  import {saveCartFoods} from '@/utils'
   export default {
     props: ['id'],
     mounted () {
@@ -28,6 +30,21 @@
       // const id = this.$route.params.id
       const id = this.id
       this.$store.dispatch('getShop',id)
+
+      window.addEventListener('unload', () => {
+        const {cartFoods,shop:{id}} = this.shop
+        saveCartFoods(id,cartFoods)
+      })
+    },
+    computed: {
+      ...mapState({
+        shop: state => state.shop
+      })
+    },
+
+    beforeDestroy () {
+      const {cartFoods,shop:{id}} = this.shop
+      saveCartFoods(id,cartFoods)
     },
 
     components: {

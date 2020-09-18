@@ -17,6 +17,8 @@ import {
   reqShop,
 } from '@/api'
 
+import {getCartFoods} from '@/utils'
+
 export default {
   state: {
     // goods: [],//商品列表
@@ -107,7 +109,8 @@ export default {
       const result = await reqShop(id)
       if(result.code===0) {
         const shop = result.data
-        commit(RECEIVE_SHOP, {shop})
+        const cartFoods = getCartFoods(shop)
+        commit(RECEIVE_SHOP, {shop,cartFoods})
         // 如果组件中传递了接收消息的回调函数, 数据更新后, 调用回调通知调用的组件
       }
     },
@@ -139,6 +142,11 @@ export default {
     totalPrice (state) {
       return state.cartFoods.reduce((pre, food) => pre + food.count * food.price, 0)
     },
+    /* 推荐评价总数量 */
+    positiveSize (state) {
+      const ratings = state.shop.ratings
+      return !ratings ? 0 : ratings.reduce((total, rating) => total + (rating.rateType===0 ? 1 : 0), 0)
+    }
 
   }
 }

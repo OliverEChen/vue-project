@@ -42,7 +42,6 @@ export default [
     component:Login
   },
   {
-    name: 'shop',
     path:'/shop/:id',
     props: true,
     // props: toRoute => ({id:toRoute.params.id}),

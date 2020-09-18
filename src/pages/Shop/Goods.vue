@@ -52,7 +52,7 @@
 
 <script type="text/ecmascript-6">
   import { mapState } from "vuex"
-  import BScroll from 'better-scroll'
+  import BetterScroll from 'better-scroll'
   import Food from '@/components/Food/Food'
   import ShopCart from '@/components/ShopCart/ShopCart'
   export default {
@@ -88,11 +88,13 @@
     methods: {
       initScroll () {
         if (!this.leftScroll) {
-          this.leftScroll = new BScroll(this.$refs.left,{
+          this.leftScroll = new BetterScroll(this.$refs.left,{
             // movable: true,
+            click: true
           })
-          this.rightScroll = new BScroll(this.$refs.right,{
+          this.rightScroll = new BetterScroll(this.$refs.right,{
             probeType: 1,
+            click: true
             // movable: true,
           })
 
